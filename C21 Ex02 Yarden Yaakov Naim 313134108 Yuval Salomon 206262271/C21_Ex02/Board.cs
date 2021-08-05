@@ -24,8 +24,7 @@
 
         public void PrintBoard()
         {
-
-            for(int row = 0; row < r_RowSize; row++)
+            for(int row = 0; row <= r_RowSize; row++)
             {
                for(int col = 0; col < r_ColSize; col++)
                {
@@ -35,16 +34,25 @@
                     }
                     else
                     {
-                        Console.Write("| {0} ", GetValueInCell(row, col));
-                        if (col == this.r_ColSize - 1)
+                        Console.Write("| {0} ", GetValueInCell(row - 1, col));
+                        if(col == this.r_ColSize - 1)
                         {
                             Console.Write("|");
                         }
                     }
                }
-               Console.WriteLine();
-               Console.WriteLine("============================");
 
+               Console.WriteLine();
+               if(row != 0)
+               {
+                   string sepLine = "====";
+                   for(int i = 0; i < this.r_ColSize; i++)
+                   {
+                       Console.Write(sepLine);
+                   }
+
+                   Console.WriteLine("=");
+               }
             }
         }
 

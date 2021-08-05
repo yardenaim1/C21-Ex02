@@ -17,6 +17,7 @@
         public void Run()
         {
             initGame();
+            Ex02.ConsoleUtils.Screen.Clear();
             this.m_Board.PrintBoard();
         }
 
