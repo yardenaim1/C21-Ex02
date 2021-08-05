@@ -5,6 +5,7 @@
 
     public class Board // public???
     {
+        private readonly int r_RowSize, r_ColSize;
         public Board(int i_Rows, int i_Cols)
         {
             char[,] Board = new char[i_Rows, i_Cols];
