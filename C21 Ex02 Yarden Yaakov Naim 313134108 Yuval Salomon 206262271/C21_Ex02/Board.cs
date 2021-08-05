@@ -1,37 +1,61 @@
 ﻿namespace C21_Ex02
 {
     using System;
-    using System.Threading;
 
     public class Board // public???
     {
         private readonly int r_RowSize, r_ColSize;
+        private char[,] m_Board = null;
+
         public Board(int i_Rows, int i_Cols)
         {
-            char[,] Board = new char[i_Rows, i_Cols];
+            r_ColSize = i_Cols;
+            r_RowSize = i_Rows;
+            m_Board = new char[i_Rows, i_Cols];
+
+            for (int i = 0; i < i_Rows; i++)
+            {
+                for (int j = 0; j < i_Cols; j++)
+                {
+                    m_Board[i, j] = ' ';
+                }
+            }
         }
 
-        private static void getBoardSize()
+        public void PrintBoard()
         {
-            int numOfRows = 0, numOfCols = 0;
-            Console.WriteLine("Please enter a desired board size ( rows and cols between 4 - 8 ):");
-            Console.Write("Rows:");
-            bool rowsIsNumber = int.TryParse(System.Console.ReadLine(), out numOfRows);
-            while(numOfRows < 4 || numOfRows > 8 || rowsIsNumber == false)
-            {
-                Console.WriteLine("Please enter a number between 4 - 8 (and then press 'enter')");
-                rowsIsNumber = int.TryParse(System.Console.ReadLine(), out numOfRows);
-            }
 
-            Console.Write("Cols:");
-            bool colsIsNumber = int.TryParse(System.Console.ReadLine(), out numOfCols);
-            while (numOfCols < 4 || numOfCols > 8 || colsIsNumber == false)
+            for(int row = 0; row < r_RowSize; row++)
             {
-                Console.WriteLine("Please enter a number between 4 - 8 (and then press 'enter')");
-                colsIsNumber = int.TryParse(System.Console.ReadLine(), out numOfCols);
-            }
+               for(int col = 0; col < r_ColSize; col++)
+               {
+                    if (row == 0)
+                    {
+                        Console.Write("  {0} ", col + 1);
+                    }
+                    else
+                    {
+                        Console.Write("| {0} ", GetValueInCell(row, col));
+                        if (col == this.r_ColSize - 1)
+                        {
+                            Console.Write("|");
+                        }
+                    }
+               }
+               Console.WriteLine();
+               Console.WriteLine("============================");
 
-            Board board = new Board(numOfRows, numOfCols);
+            }
+        }
+
+        public static bool IsValidSize(int i_size)
+        {
+            return i_size >= 4 && i_size <= 8;
+        }
+
+        public char GetValueInCell(int i_Row, int i_Col)
+        {
+            return m_Board[i_Row, i_Col];
         }
     }
 }
