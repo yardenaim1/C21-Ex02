@@ -43,27 +43,21 @@
             return (FourInARow.eGameStyle)userChoice;
         }
 
-        public static bool GetUserMove(ref int io_CurrentPlay)
+        public static void GetUserMove(ref int o_ColumnFromUser, ref bool o_QisEntered)
         {
-            Console.WriteLine(String.Format(@"
-Select the column into which you want to toss your coin."));
+            Console.WriteLine("Please enter column number or Q for quit this round: ");
             string userInput = Console.ReadLine();
-            if(userInput != "Q")
+
+            while(userInput != "Q" && int.TryParse(userInput, out o_ColumnFromUser) == false)
             {
-                bool isValidCol = int.TryParse(userInput, out io_CurrentPlay);
-                while (isValidCol == false || io_CurrentPlay < 1 || io_CurrentPlay > 8 || userInput.Equals("Q"))
-                {
-                    Console.WriteLine("invalid col, please try again");
-                    userInput = Console.ReadLine();
-                    isValidCol = int.TryParse(userInput, out io_CurrentPlay);
-                }
-            }
-            else
-            {
-                // end round
+                Console.WriteLine("Invalid input, try again");
+                userInput = Console.ReadLine();
             }
 
-            return userInput.Equals("Q");
+            if(userInput == "Q")
+            {
+                o_QisEntered = true;
+            }
         }
     }
 }

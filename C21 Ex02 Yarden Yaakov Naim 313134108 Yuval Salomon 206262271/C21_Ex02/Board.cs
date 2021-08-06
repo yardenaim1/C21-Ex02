@@ -7,6 +7,14 @@
         private readonly int r_RowSize, r_ColSize;
         private char[,] m_Board = null;
 
+        public int Column
+        {
+            get
+            {
+                return this.r_ColSize;
+            }
+        }
+
         public Board(int i_Rows, int i_Cols)
         {
             r_ColSize = i_Cols;
@@ -34,7 +42,7 @@
                     }
                     else
                     {
-                        Console.Write("| {0} ", GetValueInCell(row - 1, col));
+                        Console.Write("| {0} ", GetValueInCell(row - 1 , col));
                         if(col == this.r_ColSize - 1)
                         {
                             Console.Write("|");
@@ -66,52 +74,23 @@
             return m_Board[i_Row, i_Col];
         }
 
-        public bool AddMove(int i_Col, char i_Sign)
+        public void AddMove(int i_Col, char i_Sign)
         {
-            bool addedMove = false;
+            int row = r_RowSize;
+            bool setDone = false;
 
-            if (checkValidCol(i_Col) == true)
+            while (row > 0 && setDone == false)
             {
-                int row = r_RowSize;
-                bool setDone = false;
-                while (row > 0 && setDone == false)
+                if (m_Board[row - 1, i_Col - 1] != ' ')
                 {
-                    if (this.m_Board[row - 1, i_Col - 1] != ' ')
-                    {
-                        row--;
-                    }
-                    else
-                    {
-                        setCell(row - 1, i_Col - 1, i_Sign);
-                        setDone = true;
-                        /*if (winnerCheckLine(i_Sign) || winnerCheckCol(i_Sign, i_Col - 1) || winnerCheckDiagonal(i_Sign))
-                        {
-                            Ex02.ConsoleUtils.Screen.Clear();
-                            PrintBoard();
-                            if (i_Sign == 'X')
-                            {
-                                Console.WriteLine("Player number 1 won! :)");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Player number 2 won! :)");
-                            }
-
-                            //return false; היה ככה בפרויקט מסמסטר א'
-                        }*/
-                        //return true;היה ככה בפרויקט מסמסטר א'
-                    }
+                    row--;
                 }
-
-                addedMove = true;
+                else
+                {
+                    setCell(row - 1, i_Col - 1, i_Sign);
+                    setDone = true;
+                }
             }
-            else
-            {
-                Console.WriteLine("The column you entered is full");
-                addedMove = false;
-            }
-
-            return addedMove;
         }
 
         private void setCell(int i_row, int i_Col, char i_Sign)
@@ -119,9 +98,10 @@
             this.m_Board[i_row, i_Col] = i_Sign;
         }
 
-        private bool checkValidCol(int i_Col)
+        public bool IsValidCol(int i_Col)
         {
-            return this.m_Board[0, i_Col] == ' ';
+            return i_Col >= 1 && i_Col <= this.r_ColSize && m_Board[0, i_Col - 1] == ' ';
         }
     }
 }
+

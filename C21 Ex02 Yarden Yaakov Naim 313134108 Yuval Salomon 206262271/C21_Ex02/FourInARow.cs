@@ -5,7 +5,7 @@
     public class FourInARow
     {
         private Board m_Board;
-        private Player m_Player1, m_Player2;
+        private Player m_Player1, m_Player2, m_CurrentPlayer;
 
         public FourInARow()
         {
@@ -17,17 +17,36 @@
         public void Run()
         {
             initGame();
-            bool GameOver = false;
-
+            bool gameOver = false;
             int userColChoise = 0;
-            while (GameOver == false)//GameOn
+            
+            this.m_CurrentPlayer = this.m_Player1;
+            while (gameOver == false)
             {
                 Ex02.ConsoleUtils.Screen.Clear();
                 this.m_Board.PrintBoard();
+               
+                //player
+                if(this.m_CurrentPlayer.PlayerType == Player.ePlayerType.Player)
+                {
+                    GameLogic.MakeMoveOfPlayer(m_CurrentPlayer, ref gameOver, m_Board);
+                }
+                // computer plays
+                else
+                {
+                   // GameLogic.MakeMoveOfComputer(this.m_CurrentPlayer, ref gameOver);
+                }
 
-                GameOver = UI.GetUserMove(ref userColChoise);
-                GameLogic.MakeMove(userColChoise, this.m_Board, '?');
+                if(this.m_CurrentPlayer == this.m_Player1)
+                {
+                    this.m_CurrentPlayer = this.m_Player2;
+                }
+                else
+                {
+                    this.m_CurrentPlayer = this.m_Player1;
+                }
             }
+
         }
 
         private void initGame()
