@@ -7,7 +7,6 @@
     {
         public static void Main()
         {
-
             FourInARow newGame = new FourInARow();
             newGame.Run();
         }

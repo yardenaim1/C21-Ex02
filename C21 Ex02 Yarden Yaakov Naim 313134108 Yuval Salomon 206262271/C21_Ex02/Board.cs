@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Board // public???
+    public class Board
     {
         private readonly int r_RowSize, r_ColSize;
         private char[,] m_Board = null;
@@ -64,6 +64,64 @@
         public char GetValueInCell(int i_Row, int i_Col)
         {
             return m_Board[i_Row, i_Col];
+        }
+
+        public bool AddMove(int i_Col, char i_Sign)
+        {
+            bool addedMove = false;
+
+            if (checkValidCol(i_Col) == true)
+            {
+                int row = r_RowSize;
+                bool setDone = false;
+                while (row > 0 && setDone == false)
+                {
+                    if (this.m_Board[row - 1, i_Col - 1] != ' ')
+                    {
+                        row--;
+                    }
+                    else
+                    {
+                        setCell(row - 1, i_Col - 1, i_Sign);
+                        setDone = true;
+                        /*if (winnerCheckLine(i_Sign) || winnerCheckCol(i_Sign, i_Col - 1) || winnerCheckDiagonal(i_Sign))
+                        {
+                            Ex02.ConsoleUtils.Screen.Clear();
+                            PrintBoard();
+                            if (i_Sign == 'X')
+                            {
+                                Console.WriteLine("Player number 1 won! :)");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Player number 2 won! :)");
+                            }
+
+                            //return false; היה ככה בפרויקט מסמסטר א'
+                        }*/
+                        //return true;היה ככה בפרויקט מסמסטר א'
+                    }
+                }
+
+                addedMove = true;
+            }
+            else
+            {
+                Console.WriteLine("The column you entered is full");
+                addedMove = false;
+            }
+
+            return addedMove;
+        }
+
+        private void setCell(int i_row, int i_Col, char i_Sign)
+        {
+            this.m_Board[i_row, i_Col] = i_Sign;
+        }
+
+        private bool checkValidCol(int i_Col)
+        {
+            return this.m_Board[0, i_Col] == ' ';
         }
     }
 }

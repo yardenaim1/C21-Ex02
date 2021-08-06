@@ -17,8 +17,17 @@
         public void Run()
         {
             initGame();
-            Ex02.ConsoleUtils.Screen.Clear();
-            this.m_Board.PrintBoard();
+            bool GameOver = false;
+
+            int userColChoise = 0;
+            while (GameOver == false)//GameOn
+            {
+                Ex02.ConsoleUtils.Screen.Clear();
+                this.m_Board.PrintBoard();
+
+                GameOver = UI.GetUserMove(ref userColChoise);
+                GameLogic.MakeMove(userColChoise, this.m_Board, '?');
+            }
         }
 
         private void initGame()
