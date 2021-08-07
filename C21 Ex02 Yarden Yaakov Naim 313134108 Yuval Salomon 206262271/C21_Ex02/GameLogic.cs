@@ -10,7 +10,7 @@
             bool isQ = false;
 
             UI.GetUserMove(ref columnFromUser, ref isQ);
-            while(i_GameBoard.IsValidCol(columnFromUser) == false)
+            while(i_GameBoard.IsValidCol(columnFromUser) == false && isQ == false)
             {
                 Console.WriteLine("The column you entered is not valid!");
                 UI.GetUserMove(ref columnFromUser, ref isQ);
@@ -19,10 +19,11 @@
             if (isQ == true)
             {
                 o_GameOver = true;
-                return;
             }
-
-            MakeMove(columnFromUser, i_GameBoard, i_Player);
+            else
+            {
+                MakeMove(columnFromUser, i_GameBoard, i_Player);
+            }
         }
 
         private static void MakeMove(int i_CurrentMove, Board i_GameBoard, Player i_Player)

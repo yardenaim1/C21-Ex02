@@ -37,14 +37,8 @@
                    // GameLogic.MakeMoveOfComputer(this.m_CurrentPlayer, ref gameOver);
                 }
 
-                if(this.m_CurrentPlayer == this.m_Player1)
-                {
-                    this.m_CurrentPlayer = this.m_Player2;
-                }
-                else
-                {
-                    this.m_CurrentPlayer = this.m_Player1;
-                }
+                m_CurrentPlayer = this.m_CurrentPlayer == this.m_Player1 ? this.m_Player2 : this.m_Player1;
+
             }
 
         }
