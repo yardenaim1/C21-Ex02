@@ -2,28 +2,26 @@
 {
     public class Player
     {
-        private ePlayerType m_Type;
-
+        private ePlayerType m_PlayerType;
         private char m_Sign;
-
-        private int m_Score;
+        private int m_Score = 0;
 
         public Player(ePlayerType i_Type, char i_Sign)
         {
-            this.m_Type = i_Type;
-            this.m_Sign = i_Sign;
+            m_PlayerType = i_Type;
+            m_Sign = i_Sign;
         }
 
         public ePlayerType PlayerType
         {
             get
             {
-                return m_Type;
+                return m_PlayerType;
             }
 
             set
             {
-                m_Type = value;
+                m_PlayerType = value;
             }
         }
 
@@ -31,9 +29,9 @@
         {
             get
             {
-                return this.m_Sign;
+                return m_Sign;
             }
-
+            
             set
             {
                 m_Sign = value;
@@ -44,18 +42,24 @@
         {
             get
             {
-                return this.m_Score;
+                return m_Score;
             }
-
+            
             set
             {
-                this.m_Score = value;
+                m_Score = value;
             }
+        }
+
+        public bool IsHuman()
+        {
+            return this.PlayerType == ePlayerType.Player1 || this.PlayerType == ePlayerType.Player2;
         }
 
         public enum ePlayerType
         {
-            Player = 1,
+            Player1,
+            Player2,
             Computer
         }
     }
